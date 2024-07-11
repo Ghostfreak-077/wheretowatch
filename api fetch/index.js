@@ -24,12 +24,13 @@ const search = async (title) => {
 // console.log(json_data);
 };
 
-app.get("/search", async (req, res) => {
+app.get("/search/", async (req, res) => {
     const title = req.query.title
 
     if (!title) return res.status(400).send("Title is required");
     
     const data = await search(title);
+    
     res.send(data);
 });
 
