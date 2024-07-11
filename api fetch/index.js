@@ -8,7 +8,7 @@ const app = express();
 
 const RAPID_API_KEY = process.env.RAPID_API_KEY;
 
-const search = async () => {
+const search = async (title) => {
 //   const client = new streamingAvailability.Client(
 //     new streamingAvailability.Configuration({
 //       apiKey: process.env.RAPID_API_KEY,
@@ -18,13 +18,18 @@ const search = async () => {
 //     title: "Batman",
 //     country: "in"
 //   });
+  console.log(title);
 
   return json_data;
 // console.log(json_data);
 };
 
 app.get("/search", async (req, res) => {
-    const data = await search();
+    const title = req.query.title
+
+    if (!title) return res.status(400).send("Title is required");
+    
+    const data = await search(title);
     res.send(data);
 });
 
